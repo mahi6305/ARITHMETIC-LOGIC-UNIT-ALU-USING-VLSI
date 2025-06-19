@@ -1,0 +1,48 @@
+module alu(
+input [2:0]opcode,
+input [7:0]OperandA,OperandB,
+output reg [7:0]result
+    );
+    
+always @(*)begin
+case(instruction)
+3'b000:
+    result = OperandA + B;
+3'b001:
+    result = OperandA - B;
+3'b010:
+    result = OperandA / B;
+3'b011:
+    result = OperandA * B;  
+3'b100:
+    result = OperandA & B; 
+3'b101:
+    result = OperandA | B;
+3'b110:
+    result = ~OperandA;
+3'b111:
+    result = OperandA ^ OperandA;
+default:
+    result = 0;
+    endcase
+end
+
+endmodule
+alu uut(instruction,A,B,result);
+
+integer i;
+
+initial begin
+A = 50; B = 10; instruction = 0;
+
+for(i = 1; i < 8; i = i+ 1)begin
+    #10
+    instruction = i;
+end
+
+#10
+$finish();
+
+end
+
+endmodule
